@@ -16,8 +16,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
+  build-bookmarker-api:
+    name: Build bookmarker-api
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +27,14 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: 'gradle'
+
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-      with:
-        arguments: build
+      run: ./gradlew check
+
+    - if: ${{ github.ref == 'refs/heads/main' }}
+      name: Build and Publish Docker image
+      run: |
+        ./gradlew clean assemble jibDockerBuild
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/bookmarker-api
