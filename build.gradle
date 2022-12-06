@@ -57,10 +57,6 @@ jib {
     to {
         image = 'evgall/bookmarker-api'
         tags = ['latest', '0.0.1']
-        auth {
-            username = property('dockerHubUsername')
-            password = property('dockerHubPassword')
-        }
     }
     container {
         ports['8080']
