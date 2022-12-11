@@ -12,6 +12,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter(value = AccessLevel.NONE)
+@Builder(toBuilder = true)
 public final class Bookmark {
 
     @Id

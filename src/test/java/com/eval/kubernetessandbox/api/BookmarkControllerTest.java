@@ -70,4 +70,20 @@ class BookmarkControllerTest {
                 .andExpect(jsonPath("$.hasPrevious", equalTo(hasPrevious)));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "Spring, 4, 1, 0, true, true, false, false",
+            "Java,   3, 1, 0, true, true, false, false"
+    })
+    void shouldGetBookmarksWithTitleLike(String title, int totalElements, int totalPages, int currentPage, boolean isFirst, boolean isLast, boolean hasNext, boolean hasPrevious) throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/api/bookmarks?query=" + title))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", equalTo(totalElements)))
+                .andExpect(jsonPath("$.totalPages", equalTo(totalPages)))
+                .andExpect(jsonPath("$.currentPage", equalTo(currentPage)))
+                .andExpect(jsonPath("$.isFirst", equalTo(isFirst)))
+                .andExpect(jsonPath("$.isLast", equalTo(isLast)))
+                .andExpect(jsonPath("$.hasNext", equalTo(hasNext)))
+                .andExpect(jsonPath("$.hasPrevious", equalTo(hasPrevious)));
+    }
 }

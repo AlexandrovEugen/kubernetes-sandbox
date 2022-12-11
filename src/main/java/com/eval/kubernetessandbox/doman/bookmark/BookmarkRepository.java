@@ -11,5 +11,5 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     @Query("select new com.eval.kubernetessandbox.doman.bookmark.BookmarkDto(b.id, b.url, b.title, b.createdAt) from Bookmark b")
     Page<BookmarkDto> findBookmarks(Pageable pageable);
 
-
+    Page<BookmarkDto> findByTitleContainsIgnoreCase(String query, Pageable pageRequest);
 }
