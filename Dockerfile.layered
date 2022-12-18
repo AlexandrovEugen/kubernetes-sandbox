@@ -10,9 +10,14 @@ RUN java -Djarmode=layertools -jar application.jar extract
 # The second stage of our build will copy the extracted layers
 FROM eclipse-temurin:17-jre-focal
 WORKDIR application
+run true
 COPY --from=builder application/dependencies/ ./
+run true
 COPY --from=builder application/spring-boot-loader/ ./
+run true
 COPY --from=builder application/snapshot-dependencies/ ./
+run true
 COPY --from=builder application/application/ ./
+run true
 
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]

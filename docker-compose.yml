@@ -18,18 +18,3 @@ services:
         max-file: "3"
     ports:
       - '15432:5432'
-  bookmarker_api:
-    build:
-      context: .
-      dockerfile: Dockerfile.layered
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-      SPRING_DATASOURCE_URL: jdbc:postgresql://bookmarker_db:5432/postgres
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-    ports:
-      - "18080:8080"
-    restart: always
-    depends_on:
-      - bookmarker_db
