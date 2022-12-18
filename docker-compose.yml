@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  bookmarker_db:
+    image: postgres:14-alpine
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=appdb
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '15432:5432'
+  bookmarker_api:
+    build:
+      context: .
+      dockerfile: Dockerfile.layered
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_URL: jdbc:postgresql://bookmarker_db:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    ports:
+      - "18080:8080"
+    restart: always
+    depends_on:
+      - bookmarker_db
