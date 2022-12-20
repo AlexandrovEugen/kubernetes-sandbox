@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  bookmarker_db:
+  bookmarker-db:
     image: postgres:14-alpine
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "postgres" ]
