@@ -60,11 +60,11 @@ spec:
                   key: postgres_dbname
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
+
           volumeMounts:
-            - mountPath: postgres-storage
-              name: /var/lib/postgresql/data
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
             claimName: postgres-pv-claim
-
