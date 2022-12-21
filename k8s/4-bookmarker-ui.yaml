@@ -26,17 +26,14 @@ spec:
     metadata:
       labels:
         app: bookmarker-ui-pod
-
     spec:
       containers:
         - name: bookmarker-ui
           image: evgall/bookmarker-ui
           ports:
             - containerPort: 3000
-
           env:
             - name: CLIENT_SIDE_API_BASE_URL
               value: http://localhost:18080
-
             - name: SERVER_SIDE_API_BASE_URL
               value: http://bookmarker-api-svc:8080

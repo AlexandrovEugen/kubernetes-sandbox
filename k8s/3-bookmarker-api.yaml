@@ -53,10 +53,10 @@ spec:
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: bookmarkers-secrets
+                  name: bookmarker-secrets
                   key: postgres_username
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: bookmarkers-secrets
+                  name: bookmarker-secrets
                   key: postgres_password

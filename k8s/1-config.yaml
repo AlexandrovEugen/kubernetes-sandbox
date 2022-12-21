@@ -6,14 +6,11 @@ data:
   postgres_host: postgres-svc
   postgres_port: "5432"
   postgres_dbname: appdb
-
-
-
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: bookmarkers-secrets
+  name: bookmarker-secrets
 type: Opaque
 data:
   postgres_username: cG9zdGdyZXM=
